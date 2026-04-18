@@ -1,0 +1,23 @@
+name: Build and Test C++ Project
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install g++
+      run: sudo apt-get update && sudo apt-get install -y g++
+
+    - name: Build project
+      run: g++ -std=c++23 -o twosum src/main.cpp src/twosum.cpp
+
+    - name: Run tests
+      run: ./twosum
