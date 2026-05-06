@@ -1,32 +1,37 @@
 name: C++ CI Build and Test
-
+ 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+ 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
+ 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-
+ 
     - name: Install Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential
-
-    - name: Compile Project
-      # 調整處：切換到 src 目錄後進行編譯，確保所有檔案都能被讀取
+ 
+    - name: Compile Tests
       run: |
         cd src
         g++ -std=c++17 -o test_runner tests.cpp twosum.cpp
-
+ 
     - name: Run Tests
-      # 調整處：進入 src 目錄執行編譯出的測試程式
       run: |
         cd src
         ./test_runner
+ 
+    - name: Upload Executable as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-runner
+        path: src/test_runner
+        retention-days: 7
