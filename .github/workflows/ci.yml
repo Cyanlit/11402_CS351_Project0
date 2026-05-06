@@ -20,8 +20,7 @@ jobs:
         sudo apt-get install -y build-essential
 
     - name: Compile Project
-      # Compiling with C++17 as required by your SRS
-      run: g++ -std=c++17 -Isrc -o test_runner tests.cpp src/twosum.cpp
+      run: g++ -std=c++17 -o test_runner tests.cpp src/twosum.cpp src/twosum.h
 
     - name: Run Tests
       # Executes the compiled test binary and checks the return code
