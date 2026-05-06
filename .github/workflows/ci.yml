@@ -21,7 +21,7 @@ jobs:
 
     - name: Compile Project
       # Compiling with C++17 as required by your SRS
-      run: g++ -std=c++17 -o test_runner tests.cpp twosum.cpp
+      run: g++ -std=c++17 -Isrc -o test_runner tests.cpp src/twosum.cpp
 
     - name: Run Tests
       # Executes the compiled test binary and checks the return code
