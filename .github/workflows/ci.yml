@@ -1,4 +1,4 @@
-name: Build and Test C++ Project
+name: C++ CI Build and Test
 
 on:
   push:
@@ -11,13 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-    - name: Install g++
-      run: sudo apt-get update && sudo apt-get install -y g++
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
 
-    - name: Build project
-      run: g++ -std=c++23 -o twosum src/main.cpp src/twosum.cpp
+    - name: Compile Project
+      # Compiling with C++17 as required by your SRS
+      run: g++ -std=c++17 -o test_runner tests.cpp twosum.cpp
 
-    - name: Run tests
-      run: ./twosum
+    - name: Run Tests
+      # Executes the compiled test binary and checks the return code
+      run: ./test_runner
