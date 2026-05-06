@@ -20,8 +20,13 @@ jobs:
         sudo apt-get install -y build-essential
 
     - name: Compile Project
-      run: g++ -std=c++17 -o test_runner tests.cpp src/twosum.cpp src/twosum.h
+      # 調整處：切換到 src 目錄後進行編譯，確保所有檔案都能被讀取
+      run: |
+        cd src
+        g++ -std=c++17 -o test_runner tests.cpp twosum.cpp
 
     - name: Run Tests
-      # Executes the compiled test binary and checks the return code
-      run: ./test_runner
+      # 調整處：進入 src 目錄執行編譯出的測試程式
+      run: |
+        cd src
+        ./test_runner
