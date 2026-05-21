@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
  
 jobs:
   build-and-test:
@@ -21,17 +22,15 @@ jobs:
  
     - name: Compile Tests
       run: |
-        cd src
-        g++ -std=c++17 -o test_runner tests.cpp twosum.cpp
+        g++ -std=c++17 -o test/test_runner test/tests.cpp src/twosum.cpp
  
     - name: Run Tests
       run: |
-        cd src
-        ./test_runner
+        ./test/test_runner
  
     - name: Upload Executable as Artifact
       uses: actions/upload-artifact@v4
       with:
         name: test-runner
-        path: src/test_runner
+        path: test/test_runner
         retention-days: 7
